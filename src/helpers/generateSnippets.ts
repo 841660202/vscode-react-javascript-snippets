@@ -1,5 +1,5 @@
 import { writeFile } from 'fs';
-
+// 代码片段资源
 import componentsSnippets, {
   ComponentsSnippet,
 } from '../sourceSnippets/components';
@@ -19,10 +19,16 @@ import typescriptSnippets, {
   TypescriptSnippet,
 } from '../sourceSnippets/typescript';
 
-import extensionConfig from './extensionConfig';
-import parseSnippetToBody from './parseSnippetToBody';
-import { replaceSnippetPlaceholders } from './snippetPlaceholders';
 
+
+// 工作空间配置
+import extensionConfig from './extensionConfig';
+// 代码片段解析到body
+import parseSnippetToBody from './parseSnippetToBody';
+// 替换代码片段中的Placeholders 键(代码层面的变量)转化成值(vscode可识别的语法)
+// @link https://code.visualstudio.com/docs/editor/userdefinedsnippets#_placeholders
+import { replaceSnippetPlaceholders } from './snippetPlaceholders';
+// 代码片段key
 export type SnippetKeys =
   | OthersSnippet['key']
   | HooksSnippet['key']
@@ -34,7 +40,7 @@ export type SnippetKeys =
   | ConsoleSnippet['key']
   | PropTypesSnippet['key']
   | TestsSnippet['key'];
-
+// 代码片段
 export type Snippet =
   | OthersSnippet
   | HooksSnippet
@@ -47,12 +53,14 @@ export type Snippet =
   | PropTypesSnippet
   | TestsSnippet;
 
+//代码片段对象<SnippetKey, Snippet>
 export type Snippets = {
   [key in SnippetKeys]: Snippet;
 };
 
 const getSnippets = () => {
-  const { typescript, languageScopes } = extensionConfig();
+  // 配置信息
+  const { typescript, languageScopes/**语言环境 */ } = extensionConfig();
 
   const snippets = [
     ...(typescript ? typescriptSnippets : []),
@@ -72,16 +80,17 @@ const getSnippets = () => {
     });
     return acc;
   }, {} as Snippets);
-
-  return replaceSnippetPlaceholders(JSON.stringify(snippets, null, 2));
+  // 转换成vscode识别的语法
+  return replaceSnippetPlaceholders(JSON.stringify(snippets, null, 2)/**JSON.stringify进行格式化 */);
 };
 
 const generateSnippets = () =>
   new Promise((resolve) => {
+    // 代码片段json数据格式
     const jsonSnippets = getSnippets();
     writeFile(
-      __dirname + '/../snippets/generated.json',
-      jsonSnippets,
+      __dirname + '/../snippets/generated.json', // 输出路径
+      jsonSnippets, // 数据源
       (error) => {
         if (error) {
           console.error(error);

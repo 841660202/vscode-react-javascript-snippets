@@ -1,5 +1,5 @@
 import { Snippet } from './generateSnippets';
-
+// 有引入react得前缀枚举
 const snippetWithReactImportPrefixes = [
   'rfce',
   'rfc',
@@ -45,7 +45,7 @@ const replaceOrRemoveReactImport = ({
   const reactImportIndex = bodyCopy.findIndex((line) =>
     line.match(new RegExp(/import React/, 'g')),
   );
-
+  // 找到react 引入的代码所在行
   if (reactImportIndex !== -1) {
     const line = bodyCopy[reactImportIndex];
     const newLine = line

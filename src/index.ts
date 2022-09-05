@@ -32,15 +32,18 @@ const showRestartMessage = async ({
 };
 
 export async function activate(context: ExtensionContext) {
+  // 工作空间配置更改监听
   workspace.onDidChangeConfiguration(showRestartMessage);
+
   if (JSON.stringify(generatedSnippets).length < 10) {
     await generateSnippets();
   }
+  // 注册查询命令
   const snippetSearchCommand = commands.registerCommand(
     'reactSnippets.search',
     snippetSearch,
   );
-
+  // 开启订阅，监听命令变化
   context.subscriptions.push(snippetSearchCommand);
 }
 
