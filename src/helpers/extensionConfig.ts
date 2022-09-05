@@ -7,7 +7,7 @@ export type ExtensionSettings = {
   typescript: boolean;
   typescriptPropsStatePrefix: 'type' | 'interface';
 };
-// 获取项目空间的配置信息
+// 获取工作空间的配置信息
 const extensionConfig = () =>
   workspace.getConfiguration(
     'reactSnippets.settings',

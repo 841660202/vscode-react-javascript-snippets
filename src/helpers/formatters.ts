@@ -12,7 +12,7 @@ export const formatSnippet = (snippetString: string/**传入的代码片段信�
     ? prettier.format(snippetString, getPrettierConfig())
     : snippetString;
 };
-// 介些代码片段
+// 解析代码片段
 export const parseSnippet = (body: string | string[]) => {
   // 数组转化成字符串，以\n进行换行
   const snippetBody = typeof body === 'string' ? body : body.join('\n');
