@@ -16,7 +16,8 @@ export const Placeholders = {
 } as const;
 
 export const Mappings = {
-  FileName: '${1:${TM_FILENAME_BASE}}',
+  // https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables
+  FileName: '${1:${TM_FILENAME_BASE}}', // $1 第一个光标位置，${TM_FILENAME_BASE} $1位置的placeholder
   FirstTab: '${1:first}',
   SecondTab: '${2:second}',
   ThirdTab: '${3:third}',
